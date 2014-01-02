@@ -23,6 +23,34 @@ class Machine {
     int step(){
       return mem[ ip++ ];
     }
+
+
+    int run(){
+      while( ip < MEM_SIZE ){
+        t_instruction instruction = (t_instruction) mem[ ip++ ];
+        printf("%d\n",ip);
+        printf("%d\n",acc);
+        switch( instruction ){
+          case JUMP:
+            ip = mem[ ip ];
+            break;
+          case ADD:
+            acc += mem[ ip++ ];
+            break;
+          case SET:
+            acc = mem[ ip++ ];
+            break;
+          case WRITE:
+            mem[ mem[ ip++ ] ] = acc;
+            break;
+          case READ:
+            acc = mem[ ip++ ];
+            break;
+        }
+      }
+
+      return 0;
+    }
 };
 
 int main(){
@@ -36,28 +64,7 @@ int main(){
   machine.mem[i++] = JUMP;
   machine.mem[i++] = MEM_SIZE;
 
-  while( machine.ip < MEM_SIZE ){
-    t_instruction instruction = (t_instruction) machine.mem[ machine.ip++ ];
-    printf("%d\n",machine.ip);
-    printf("%d\n",machine.acc);
-    switch( instruction ){
-      case JUMP:
-        machine.ip = machine.mem[ machine.ip ];
-        break;
-      case ADD:
-        machine.acc += machine.mem[ machine.ip++ ];
-        break;
-      case SET:
-        machine.acc = machine.mem[ machine.ip++ ];
-        break;
-      case WRITE:
-        machine.mem[ machine.mem[ machine.ip++ ] ] = machine.acc;
-        break;
-      case READ:
-        machine.acc = machine.mem[ machine.ip++ ];
-        break;
-    }
-  }
+  machine.run();
 
   printf("Exit code: %d\n\n",machine.mem[0]);
 
