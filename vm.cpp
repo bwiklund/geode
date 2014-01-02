@@ -18,18 +18,25 @@ class Machine {
     Machine(){
       mem = (int []) {[0 ... MEM_SIZE-1] = 0};
     }
+
+    void load_to_mem( char *path ){
+      int op = 0;
+      int i = 0;
+      FILE *fp = fopen( path, "rb" );
+      while( fread( &op, sizeof op, 1, fp ) == 1 ){
+        mem[ i++ ] = op;
+      }
+    }
   
     // read next opcode, increment instruction pointer
     int step(){
       return mem[ ip++ ];
     }
 
-
     int run(){
       while( ip < MEM_SIZE ){
         t_instruction instruction = (t_instruction) mem[ ip++ ];
-        printf("%d\n",ip);
-        printf("%d\n",acc);
+        
         switch( instruction ){
           case JUMP:
             ip = mem[ ip ];
@@ -53,9 +60,11 @@ class Machine {
     }
 };
 
-int main(){
+int main( int argc, char *argv[] ){
   Machine machine = Machine();
-  
+
+  machine.load_to_mem( argv[1] );
+
   machine.run();
 
   printf("Exit code: %d\n\n",machine.mem[0]);

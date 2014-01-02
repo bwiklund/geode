@@ -1,3 +1,3 @@
 #!/bin/bash
 
-g++ vm.cpp && ./a.out
+g++ vm.cpp -w && ./a.out a.ge
