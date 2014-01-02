@@ -56,14 +56,6 @@ class Machine {
 int main(){
   Machine machine = Machine();
   
-  int i = 0;
-  machine.mem[i++] = SET;
-  machine.mem[i++] = 1337;
-  machine.mem[i++] = WRITE;
-  machine.mem[i++] = 0;
-  machine.mem[i++] = JUMP;
-  machine.mem[i++] = MEM_SIZE;
-
   machine.run();
 
   printf("Exit code: %d\n\n",machine.mem[0]);
