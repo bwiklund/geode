@@ -14,6 +14,10 @@ class Machine {
     int *mem;
     int ip;
     int acc;
+
+    Machine(){
+      int acc = 5;
+    }
 };
 
 int main(){
