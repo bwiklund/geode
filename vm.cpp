@@ -12,18 +12,21 @@ typedef enum {
 class Machine {
   public:
     int *mem;
-    int ip;
-    int acc;
+    int ip = 0;
+    int acc = 0;
 
     Machine(){
-      int acc = 5;
+      mem = (int []) {[0 ... MEM_SIZE-1] = 0};
+    }
+  
+    // read next opcode, increment instruction pointer
+    int step(){
+      return mem[ ip++ ];
     }
 };
 
 int main(){
   Machine machine = Machine();
-  int mem[ MEM_SIZE ] = {[0 ... MEM_SIZE-1] = 0};
-  machine.mem = mem;
   
   int i = 0;
   machine.mem[i++] = SET;
