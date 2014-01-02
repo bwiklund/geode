@@ -1,3 +1,3 @@
 #!/bin/bash
 
-gcc vm.c && ./a.out
+g++ vm.cpp && ./a.out
